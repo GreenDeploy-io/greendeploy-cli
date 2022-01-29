@@ -1,0 +1,18 @@
+# To update requirements.txt, run:
+#
+#    source ~/.venv/gdeploy-py3101/bin/activate
+#    cd ~/Projects/gdeploy
+#    pip-compile requirements.in
+#
+# If not installed, `pip install pip-tools`
+#
+# To install in localhost, run:
+#
+#    pip-sync requirements.txt
+#
+
+# Click
+# ----------------------------------------------------------------
+click==8.0.0  # 2021 Dec 7 https://docs.djangoproject.com/en/3.2/releases/3.2.10/
+
+pyfiglet==0.7.2
