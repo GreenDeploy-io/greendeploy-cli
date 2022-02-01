@@ -25,7 +25,7 @@ TEMPLATE_PATH = GREENDEPLOY_PATH / "starters" / "project"
 
 CONFIG_ARG_HELP = """Non-interactive mode, using a configuration yaml file. This file
 must supply  the keys required by the template's prompts.yml. When not using a starter,
-these are `project_name`, `repo_name` and `python_package`."""
+these are `project_name`, `repo_name` and `project_slug`."""
 STARTER_ARG_HELP = """Specify the starter template to use when creating the project.
 This can be the path to a local directory, a URL to a remote VCS repository supported
 by `cookiecutter` or one of the aliases listed in ``greendeploy starter list``.

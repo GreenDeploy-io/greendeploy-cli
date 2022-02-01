@@ -13,8 +13,8 @@ repo_name:
   error_message: |
     It must contain only word symbols and/or hyphens, must also
     start and end with alphanumeric symbol."
-python_package:
-  title: "Python Package Name:"
+project_slug:
+  title: "Project Slug:"
   text: |
     Please enter a valid Python package name for your project package.
     Alphanumeric characters and underscores are allowed.
