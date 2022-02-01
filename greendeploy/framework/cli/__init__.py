@@ -1,4 +1,4 @@
-"""``gdeploy.framework.cli`` implements commands available from GDeploy's CLI.
+"""``greendeploy.framework.cli`` implements commands available from GreenDeploy's CLI.
 """
 
 from .cli import main

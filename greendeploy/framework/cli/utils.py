@@ -1,10 +1,17 @@
 """Utilities for use with click."""
-
 import difflib
+import re
+import shlex
+import shutil
+import subprocess
 import sys
 import traceback
+import warnings
 from collections import defaultdict
+from contextlib import contextmanager
+from importlib import import_module
 from itertools import chain
+from pathlib import Path
 from typing import Iterable, List, Mapping, Sequence, Set, Tuple
 
 import click
@@ -13,12 +20,12 @@ import pkg_resources
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 CUTOFF = 0.5
 ENTRY_POINT_GROUPS = {
-    "global": "gdeploy.global_commands",
-    "project": "gdeploy.project_commands",
-    "init": "gdeploy.init",
-    "line_magic": "gdeploy.line_magic",
-    "hooks": "gdeploy.hooks",
-    "cli_hooks": "gdeploy.cli_hooks",
+    "global": "greendeploy.global_commands",
+    "project": "greendeploy.project_commands",
+    "init": "greendeploy.init",
+    "line_magic": "greendeploy.line_magic",
+    "hooks": "greendeploy.hooks",
+    "cli_hooks": "greendeploy.cli_hooks",
 }
 MAX_SUGGESTIONS = 3
 
@@ -37,7 +44,7 @@ def load_entry_points(name: str) -> Sequence[click.MultiCommand]:
         try:
             entry_point_commands.append(entry_point.load())
         except Exception as exc:
-            raise GDeployCliError(f"Loading {name} commands from {entry_point}") from exc
+            raise GreenDeployCliError(f"Loading {name} commands from {entry_point}") from exc
     return entry_point_commands
 
 def _suggest_cli_command(
@@ -57,29 +64,31 @@ def _suggest_cli_command(
     suggestion += textwrap.indent("\n".join(matches), " " * 4)  # type: ignore
     return suggestion
 
+def _update_verbose_flag(ctx, param, value):  # pylint: disable=unused-argument
+    GreenDeployCliError.VERBOSE_ERROR = value
 
 
-class GDeployCliError(click.exceptions.ClickException):
-    """Exceptions generated from the GDeploy CLI.
-    Users should pass an appropriate message at the constructor.
-    """
+def _click_verbose(func):
+    """Click option for enabling verbose mode."""
+    return click.option(
+        "--verbose",
+        "-v",
+        is_flag=True,
+        callback=_update_verbose_flag,
+        help="See extensive logging and error stack traces.",
+    )(func)
 
-    VERBOSE_ERROR = False
 
-    def show(self, file=None):
-        if file is None:
-            # pylint: disable=protected-access
-            file = click._compat.get_text_stderr()
-        if self.VERBOSE_ERROR:
-            click.secho(traceback.format_exc(), nl=False, fg="yellow")
-        else:
-            etype, value, _ = sys.exc_info()
-            formatted_exception = "".join(traceback.format_exception_only(etype, value))
-            click.secho(
-                f"{formatted_exception}Run with --verbose to see the full exception",
-                fg="yellow",
-            )
-        click.secho(f"Error: {self.message}", fg="red", file=file)
+def command_with_verbosity(group: click.core.Group, *args, **kwargs):
+    """Custom command decorator with verbose flag added."""
+
+    def decorator(func):
+        func = _click_verbose(func)
+        func = group.command(*args, **kwargs)(func)
+        return func
+
+    return decorator
+
 
 class CommandCollection(click.CommandCollection):
     """Modified from the Click one to still run the source groups function."""
@@ -171,3 +180,44 @@ class CommandCollection(click.CommandCollection):
                         click.style(f"\n{title} from {group.name}", fg="green")
                     )
                     group.format_commands(ctx, formatter)
+
+
+class GreenDeployCliError(click.exceptions.ClickException):
+    """Exceptions generated from the GreenDeploy CLI.
+    Users should pass an appropriate message at the constructor.
+    """
+
+    VERBOSE_ERROR = False
+
+    def show(self, file=None):
+        if file is None:
+            # pylint: disable=protected-access
+            file = click._compat.get_text_stderr()
+        if self.VERBOSE_ERROR:
+            click.secho(traceback.format_exc(), nl=False, fg="yellow")
+        else:
+            etype, value, _ = sys.exc_info()
+            formatted_exception = "".join(traceback.format_exception_only(etype, value))
+            click.secho(
+                f"{formatted_exception}Run with --verbose to see the full exception",
+                fg="yellow",
+            )
+        click.secho(f"Error: {self.message}", fg="red", file=file)
+
+
+def _clean_pycache(path: Path):
+    """Recursively clean all __pycache__ folders from `path`.
+    Args:
+        path: Existing local directory to clean __pycache__ folders from.
+    """
+    to_delete = [each.resolve() for each in path.rglob("__pycache__")]
+
+    for each in to_delete:
+        shutil.rmtree(each, ignore_errors=True)
+
+@contextmanager
+def _filter_deprecation_warnings():
+    """Temporarily suppress all DeprecationWarnings."""
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+        yield

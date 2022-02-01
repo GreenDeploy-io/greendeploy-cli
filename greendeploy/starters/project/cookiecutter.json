@@ -1,0 +1,6 @@
+{
+    "project_name": "New Dockerized Django Project",
+    "repo_name": "{{ cookiecutter.project_name.replace(' ', '-').lower().strip('-') }}",
+    "python_package": "{{ cookiecutter.project_name.replace(' ', '_').lower().strip('-') }}",
+    "greendeploy_version": "{{ cookiecutter.greendeploy_version }}"
+}

@@ -132,7 +132,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
-/gdeploy/framework/html
+/greendeploy/framework/html
 
 # mypy
 .mypy_cache/
@@ -140,7 +140,7 @@ venv.bak/
 # Visual Studio Code
 .vscode/
 # end to end tests assets
-gdeploy.db
+greendeploy.db
 
 # Vim
 *~
@@ -148,7 +148,7 @@ gdeploy.db
 .*.swp
 
 .pytest_cache/
-gdeploy/html
+greendeploy/html
 docs/tmp-build-artifacts
 docs/build
 docs/node_modules
