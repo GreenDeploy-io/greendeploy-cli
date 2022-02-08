@@ -100,7 +100,7 @@ def new(
 
     # Get prompts.yml to find what information the user needs to supply as config.
     tmpdir = tempfile.mkdtemp()
-    cookiecutter_dir = _get_cookiecutter_dir(template_path, checkout, directory, tmpdir)
+    cookiecutter_dir = _get_cookiecutter_dir(template_path, tmpdir, checkout, directory)
     prompts_required = _get_prompts_required(cookiecutter_dir)
     # We only need to make cookiecutter_context if interactive prompts are needed.
     if not config_path:
@@ -237,11 +237,23 @@ def _create_project(template_path: str, cookiecutter_args: Dict[str, str]):
 
 
 def _get_cookiecutter_dir(
-    template_path: str, checkout: str, directory: str, tmpdir: str
+    template_path: str, tmpdir_to_clone_to: str, checkout: str=None, directory: str=None
 ) -> Path:
-    """Gives a path to the cookiecutter directory. If template_path is a repo then
-    clones it to ``tmpdir``; if template_path is a file path then directly uses that
-    path without copying anything.
+    """
+    Returns Path in local machine cookiecutter template from a template reference.
+
+    If ``template_path`` is remote repo, then copies it to ``tmpdir`` and returns the path.
+    If ``template_path`` is local path, then simply returns that path without copying.
+
+    Parameters:
+    template_path (str): Either repo ssh git url or the local file path to a cookiecutter template.
+    tmpdir_to_clone_to (str): The local machine directory to clone the remote repo to.
+    checkout (str): The branch, tag or commit ID to checkout after clone. Default None.
+    directory (str): Directory within repo where cookiecutter.json lives. Default None.
+
+    Returns:
+    Path: A Path object pointing to the local machine cookiecutter template
+
     """
     # pylint: disable=import-outside-toplevel
     from cookiecutter.exceptions import (RepositoryCloneFailed,
@@ -253,7 +265,7 @@ def _get_cookiecutter_dir(
         cookiecutter_dir, _ = determine_repo_dir(
             template=template_path,
             abbreviations={},
-            clone_to_dir=Path(tmpdir).resolve(),
+            clone_to_dir=Path(tmpdir_to_clone_to).resolve(),
             checkout=checkout,
             no_input=True,
             directory=directory,
