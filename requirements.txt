@@ -38,7 +38,7 @@ pep517==0.12.0
     # via
     #   greendeploy-cli (setup.py)
     #   pip-tools
-pip-tools==6.4.0
+pip-tools==6.5.1 ; python_version > "3.6"
     # via greendeploy-cli (setup.py)
 poyo==0.5.0
     # via cookiecutter
@@ -62,7 +62,7 @@ smmap==5.0.0
     # via gitdb
 text-unidecode==1.3
     # via python-slugify
-tomli==2.0.0
+tomli==2.0.1
     # via pep517
 urllib3==1.26.8
     # via requests

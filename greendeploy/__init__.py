@@ -1,9 +1,8 @@
-"""Kedro is a framework that makes it easy to build robust and scalable
-data pipelines by providing uniform project templates, data abstraction,
-configuration and pipeline assembly.
+"""GreenDeploy is a framework that makes it easy to build Dockerized Django projects
+by providing uniform templates.
 """
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 
 import logging
