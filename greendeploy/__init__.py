@@ -2,7 +2,13 @@
 by providing uniform templates.
 """
 
-__version__ = "0.0.2"
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version("greendeploy-cli")
+except PackageNotFoundError:
+    # package is not installed
+    pass
 
 
 import logging
