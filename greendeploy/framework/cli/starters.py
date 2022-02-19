@@ -61,7 +61,7 @@ def _remove_readonly(func: Callable, path: Path, excinfo: Tuple):  # pragma: no 
 def create_cli():  # pragma: no cover
     pass
 
-@command_with_verbosity(create_cli, short_help="Create a new greendeploy project.")
+@command_with_verbosity(create_cli, short_help="Create a new Dockerized Django project.")
 @click.option(
     "--config",
     "-c",

@@ -9,8 +9,9 @@ import click
 from click.utils import get_os_args
 from greendeploy import __version__ as version
 from greendeploy.framework.cli.starters import create_cli
-from greendeploy.framework.cli.utils import (CONTEXT_SETTINGS, CommandCollection,
-                                         load_entry_points)
+from greendeploy.framework.cli.utils import (CONTEXT_SETTINGS,
+                                             CommandCollection,
+                                             load_entry_points)
 from pyfiglet import figlet_format
 
 FIGLET_LOGO = figlet_format("GreenDeploy", font="slant")
@@ -21,8 +22,8 @@ LOGO_WITH_VERSION = FIGLET_LOGO + f"\nv{version}"
 @click.version_option(version, "--version", "-V", help="Show version and exit")
 def cli():  # pragma: no cover
     """GreenDeploy is a CLI for creating and using Dockerized Django projects. For more
-    information, type ``GreenDeploy info``.
-    When inside a Dockerized Django project (created with ``GreenDeploy new``) commands from
+    information, type ``greendeploy info``.
+    When inside a Dockerized Django project (created with ``greendeploy new``) commands from
     the project's ``cli.py`` file will also be available here.
     """
     pass
