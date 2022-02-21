@@ -156,7 +156,7 @@ def _fetch_config_from_file(config_path: str) -> Dict[str, str]:
             config = yaml.safe_load(config_file)
 
         if GreenDeployCliError.VERBOSE_ERROR:
-            click.echo(config_path + ":")
+            click.echo(f'{config_path}:')
             click.echo(yaml.dump(config, default_flow_style=False))
     except Exception as exc:
         raise GreenDeployCliError(
