@@ -45,7 +45,7 @@ _STARTER_ALIASES = {
     "pyspark-iris",
     "spaceflights",
 }
-_STARTERS_REPO = "git+https://github.com/greendeploy-org/greendeploy-starters.git"
+_STARTERS_REPO = "git+https://github.com/greendeploy-io/greendeploy-starters.git"
 
 # pylint: disable=unused-argument
 def _remove_readonly(func: Callable, path: Path, excinfo: Tuple):  # pragma: no cover
