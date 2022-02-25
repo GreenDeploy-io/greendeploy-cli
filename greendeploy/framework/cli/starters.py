@@ -46,6 +46,9 @@ _STARTER_ALIASES = {
     "spaceflights",
 }
 _STARTERS_REPO = "git+https://github.com/greendeploy-io/greendeploy-starters.git"
+_STARTER_DOCKERIZED_DJANGO_DEFAULT_PATH =  'starters/dockerized-django/default'
+_STARTERS_REPO_PRIMARY_BRANCH = 'main'
+
 
 # pylint: disable=unused-argument
 def _remove_readonly(func: Callable, path: Path, excinfo: Tuple):  # pragma: no cover
@@ -96,7 +99,10 @@ def new(
         template_path = starter_name
         checkout = checkout or version
     else:
-        template_path = str(TEMPLATE_PATH)
+        # template_path = str(TEMPLATE_PATH)
+        template_path = _STARTERS_REPO
+        directory = _STARTER_DOCKERIZED_DJANGO_DEFAULT_PATH
+        checkout = _STARTERS_REPO_PRIMARY_BRANCH
 
     # Get prompts.yml to find what information the user needs to supply as config.
     tmpdir = tempfile.mkdtemp()
