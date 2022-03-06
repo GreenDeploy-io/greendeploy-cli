@@ -331,9 +331,9 @@ def _fetch_config_from_user_prompts(
             cookiecutter_dict=config,
         )
 
-        # read the user's input for the variable
-        user_input = read_user_variable(str(prompt), cookiecutter_variable)
-        if user_input:
+        if user_input := read_user_variable(
+            str(prompt), cookiecutter_variable
+        ):
             prompt.validate(user_input)
             config[variable_name] = user_input
     return config
