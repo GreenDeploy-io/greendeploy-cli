@@ -20,9 +20,9 @@ twine upload --skip-existing dist/*
 ```
 cd {{ cookiecutter.full_path_to_your_project }}{{ cookiecutter.project_slug }}
 
-{{ cookiecutter.full_path_to_pyenv }}/versions/3.10.1/bin/python3.10 -m venv {{ cookiecutter.full_path_to_venv }}{{ cookiecutter.project_slug }}-py3101
+{{ cookiecutter.full_path_to_pyenv }}/versions/3.8.12/bin/python3.8 -m venv {{ cookiecutter.full_path_to_venv }}{{ cookiecutter.project_slug }}-py3812
 
-source {{ cookiecutter.full_path_to_venv }}{{ cookiecutter.project_slug }}-py3101/bin/activate
+source {{ cookiecutter.full_path_to_venv }}{{ cookiecutter.project_slug }}-py3812/bin/activate
 
 python -m pip install --upgrade "{{ cookiecutter.pip_version }}"
 
