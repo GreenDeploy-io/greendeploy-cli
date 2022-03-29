@@ -234,12 +234,12 @@ def _create_project(template_path: str, cookiecutter_args: Dict[str, str]):
         f"\nChange directory to the project generated in {result_path}",
         fg="green",
     )
-    click.secho(
-        "\nA best-practice setup includes initialising git and creating "
-        "a virtual environment before running ``greendeploy install`` to install "
-        "project-specific dependencies. Refer to the GreenDeploy documentation: "
-        "https://greendeploy.readthedocs.io/"
-    )
+    # click.secho(
+    #     "\nA best-practice setup includes initialising git and creating "
+    #     "a virtual environment before running ``greendeploy install`` to install "
+    #     "project-specific dependencies. Refer to the GreenDeploy documentation: "
+    #     "https://greendeploy.readthedocs.io/"
+    # )
 
 
 def _get_cookiecutter_dir(
