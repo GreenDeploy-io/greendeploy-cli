@@ -30,9 +30,9 @@ Recommended to have a venv running python 3.8 before you run
 pip install greendeploy-cli
 ```
 
-Latest greendeploy-cli version is 0.0.9
+Latest greendeploy-cli version is 0.0.10
 
-Watch asciicast on installation
+Watch asciicast on installation for v0.0.9. Steps are the same.
 
 [![asciicast](https://asciinema.org/a/481569.svg)](https://asciinema.org/a/481569)
 
@@ -44,7 +44,7 @@ Watch asciicast on installation
 greendeploy info
 ```
 
-### Create a new dockerized django project from starter
+### Create a new Dockerized Django project from starter
 
 ```
 greendeploy new --verbose
