@@ -1,12 +1,16 @@
 ## How to update PyPi
 
 ```
+# this adds the new tagged version into dist/
 python setup.py sdist bdist_wheel
+# this checks all versions inside dist/ are ok
 twine check dist/*
-rm dist/package-name-slug-<previous-tag>*
-rm dist/snake_package_name-<previous-tag>*
+# this removes all previous versions inside dist/  if you like
+rm dist/<package-name-slug>-<previous-tag>*
+rm dist/<snake_package_name>-<previous-tag>*
+# this uploads to test.pypi as a test
 twine upload --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*
-
+# this uploads to the actual pypi; get ready your username and password
 twine upload --skip-existing dist/*
 ```
 

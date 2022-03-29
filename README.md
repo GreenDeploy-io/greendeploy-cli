@@ -47,11 +47,30 @@ greendeploy info
 ### Create a new dockerized django project from starter
 
 ```
-greendeploy new
+greendeploy new --verbose
 ```
 
 The starter is from https://github.com/GreenDeploy-io/greendeploy-starters/tree/main/starters/dockerized-django/default
 
+Watch asciicast on creating new project locally on desktop
+Requires: Docker and Docker Compose
 
+[![asciicast](https://asciinema.org/a/481582.svg)](https://asciinema.org/a/481582)
 
+Watch loom on how it should look like at first webpage load after first `new` command
 
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/5c11103b6f914ea58e53cf92b44c5ac8" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+#### Related Docker commands
+
+To bring up the docker containers locally
+```
+docker-compose -f local.yml up
+```
+
+To stop the docker, use control + C
+
+To bring down the docker containers locally
+```
+docker-compose -f local.yml down --remove-orphans
+```
