@@ -59,7 +59,8 @@ Requires: Docker and Docker Compose
 
 Watch loom on how it should look like at first webpage load after first `new` command
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/5c11103b6f914ea58e53cf92b44c5ac8" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+[![[GreenDeploy CLI] First Web Load After First New Django Project - 29 March 2022 - Watch Video by Clicking](https://cdn.loom.com/sessions/thumbnails/5c11103b6f914ea58e53cf92b44c5ac8-with-play.gif)](https://www.loom.com/share/5c11103b6f914ea58e53cf92b44c5ac8)
+
 
 #### Related Docker commands
 
