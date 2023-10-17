@@ -1,18 +1,20 @@
 """greendeploy is a CLI for managing Dockerized Django projects.
 This module implements commands available from the greendeploy CLI.
 """
-import importlib
+import sys
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Sequence
 
 import click
-from click.utils import get_os_args
+from pyfiglet import figlet_format
+
 from greendeploy import __version__ as version
 from greendeploy.framework.cli.starters import create_cli
-from greendeploy.framework.cli.utils import (CONTEXT_SETTINGS,
-                                             CommandCollection,
-                                             load_entry_points)
-from pyfiglet import figlet_format
+from greendeploy.framework.cli.utils import (
+    CONTEXT_SETTINGS,
+    CommandCollection,
+    load_entry_points,
+)
 
 FIGLET_LOGO = figlet_format("GreenDeploy", font="slant")
 
@@ -70,7 +72,7 @@ class GreenDeployCLI(CommandCollection):
         # subcommand, arguments and options. click doesn't store this information anywhere
         # so we have to re-do it.
         # https://github.com/pallets/click/blob/main/src/click/core.py#L942-L945
-        args = get_os_args() if args is None else list(args)
+        args = sys.argv[1:] if args is None else list(args)
         # self._cli_hook_manager.hook.before_command_run(  # pylint: disable=no-member
         #     project_metadata=self._metadata, command_args=args
         # )
