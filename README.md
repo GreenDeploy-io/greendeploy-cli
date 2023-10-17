@@ -22,15 +22,15 @@ So the full schedule for this package is
 
 ## How to install
 
-Minimum python version: 3.8
+Minimum python version: 3.9
 
-Recommended to have a venv running python 3.8 before you run
+Recommended to have a venv running python 3.9 before you run
 
 ```
 pip install greendeploy-cli
 ```
 
-Latest greendeploy-cli version is 0.0.10
+Latest greendeploy-cli version is 0.0.11
 
 Watch asciicast on installation for v0.0.9. Steps are the same.
 
