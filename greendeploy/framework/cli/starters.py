@@ -11,14 +11,17 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, OrderedDict, Tuple
 
 import click
-import greendeploy
 import yaml
+
+import greendeploy
 from greendeploy import __version__ as version
-from greendeploy.framework.cli.utils import (CONTEXT_SETTINGS,
-                                             GreenDeployCliError,
-                                             _clean_pycache,
-                                             _filter_deprecation_warnings,
-                                             command_with_verbosity)
+from greendeploy.framework.cli.utils import (
+    CONTEXT_SETTINGS,
+    GreenDeployCliError,
+    _clean_pycache,
+    _filter_deprecation_warnings,
+    command_with_verbosity,
+)
 
 GREENDEPLOY_PATH = Path(greendeploy.__file__).parent
 TEMPLATE_PATH = GREENDEPLOY_PATH / "starters" / "project"
@@ -220,11 +223,18 @@ def _create_project(template_path: str, cookiecutter_args: Dict[str, str]):
     """
     with _filter_deprecation_warnings():
         # pylint: disable=import-outside-toplevel
+        from cookiecutter.exceptions import CookiecutterException
         from cookiecutter.main import cookiecutter  # for performance reasons
 
     try:
         result_path = cookiecutter(template=template_path, **cookiecutter_args)
+    except CookiecutterException as exc:
+        # Handle cookiecutter-specific exceptions
+        raise GreenDeployCliError(
+            f"Cookiecutter specific error: {str(exc)}"
+        ) from exc
     except Exception as exc:
+        # Handle generic exceptions
         raise GreenDeployCliError(
             "Failed to generate project when running cookiecutter."
         ) from exc
@@ -262,10 +272,8 @@ def _get_cookiecutter_dir(
 
     """
     # pylint: disable=import-outside-toplevel
-    from cookiecutter.exceptions import (RepositoryCloneFailed,
-                                         RepositoryNotFound)
-    from cookiecutter.repository import \
-        determine_repo_dir  # for performance reasons
+    from cookiecutter.exceptions import RepositoryCloneFailed, RepositoryNotFound
+    from cookiecutter.repository import determine_repo_dir  # for performance reasons
 
     try:
         cookiecutter_dir, _ = determine_repo_dir(
